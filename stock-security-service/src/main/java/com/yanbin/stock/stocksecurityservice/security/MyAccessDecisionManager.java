@@ -3,6 +3,7 @@ package com.yanbin.stock.stocksecurityservice.security;
 import com.yanbin.stock.stocksecurityservice.service.AdminService;
 import com.yanbin.stock.stocksecurityutils.constants.StockAdminConstants;
 import com.yanbin.stock.stocksecurityutils.constants.StockAdminResponseInfo;
+import com.yanbin.stock.stocksecurityutils.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
@@ -12,6 +13,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -31,7 +33,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
     AdminService adminService;
 
     /**
-     * @param authentication  当前的状态，是否已登录
+     * @param authentication   当前的状态，是否已登录
      * @param o
      * @param collection   资源所需的attribute
      * @throws AccessDeniedException
@@ -40,6 +42,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
     @Override
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
         Iterator<ConfigAttribute> iterator = collection.iterator();
+
         while (iterator.hasNext()) {
             ConfigAttribute configAttribute = iterator.next();
             String attributeName = configAttribute.getAttribute();

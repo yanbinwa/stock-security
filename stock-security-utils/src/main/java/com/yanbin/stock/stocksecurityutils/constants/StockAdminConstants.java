@@ -12,4 +12,7 @@ public class StockAdminConstants {
 
     public static final String ATTRIBUTE_LOGIN = "ATTRIBUTE_LOGIN";
     public static final String REMEMBER_ME = "REMEMBER_ME";
+
+    // 请求
+    public static final String HEADER_USER_ID_KEY = "userId";
 }

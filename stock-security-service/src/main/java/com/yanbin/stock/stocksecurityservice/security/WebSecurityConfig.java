@@ -1,5 +1,6 @@
 package com.yanbin.stock.stocksecurityservice.security;
 
+import com.yanbin.stock.stocksecurityservice.security.filter.SetUserToHeaderFilter;
 import com.yanbin.stock.stocksecurityservice.security.hander.*;
 import com.yanbin.stock.stocksecurityutils.constants.StockAdminConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author yanbinwang@emotibot.com
@@ -39,6 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+
+    @Autowired
+    SetUserToHeaderFilter setUserToHeaderFilter;
 
     /**
      *  密码验证
@@ -72,6 +77,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable().exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
                 .authenticationEntryPoint(myAuthenticationEntryPoint)
                 .and()
-                .rememberMe().rememberMeParameter(StockAdminConstants.REMEMBER_ME);
+                .rememberMe().rememberMeParameter(StockAdminConstants.REMEMBER_ME)
+                .and()
+                .addFilterAfter(setUserToHeaderFilter, FilterSecurityInterceptor.class);
     }
 }
