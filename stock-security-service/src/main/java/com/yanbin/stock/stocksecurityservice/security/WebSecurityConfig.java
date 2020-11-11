@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author yanbinwang@emotibot.com
@@ -77,8 +76,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable().exceptionHandling().accessDeniedHandler(myAccessDeniedHandler)
                 .authenticationEntryPoint(myAuthenticationEntryPoint)
                 .and()
-                .rememberMe().rememberMeParameter(StockAdminConstants.REMEMBER_ME)
-                .and()
-                .addFilterAfter(setUserToHeaderFilter, FilterSecurityInterceptor.class);
+                .rememberMe().rememberMeParameter(StockAdminConstants.REMEMBER_ME);
     }
 }
