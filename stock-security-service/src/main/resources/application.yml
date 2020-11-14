@@ -12,7 +12,8 @@ spring:
 zuul:
   host:
     max-per-route-connections: 1000
-    max-total-connections: 1000
+    socket-timeout-millis: 180000
+    connect-timeout-millis: 60000
   routes:
     stock:
       path: /yanbin/stock/**
