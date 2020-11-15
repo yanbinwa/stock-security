@@ -26,7 +26,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
         log.error("authentication failure");
         httpServletResponse.setContentType("application/json;charset=utf-8");
         Response response = new Response(StockAdminResponseInfo.USER_PASSWORD_NOT_CORRECT.getCode(), StockAdminResponseInfo.USER_PASSWORD_NOT_CORRECT.getMessage(), null);
-        httpServletResponse.setStatus(400);
+        httpServletResponse.setStatus(401);
         httpServletResponse.getWriter().write(JsonUtils.getStrFromObject(response));
     }
 }

@@ -16,16 +16,18 @@ import java.io.IOException;
 /**
  * @author yanbinwang@emotibot.com
  * @date 2020/11/8 上午8:53
+ *
+ * 判断用户是否登录
  */
 @Slf4j
 @Component
 public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        log.error("user not login");
+        log.error("user or password not correct");
         httpServletResponse.setContentType("application/json;charset=utf-8");
         Response response = new Response(StockAdminResponseInfo.USER_NOT_LOGIN.getCode(), StockAdminResponseInfo.USER_NOT_LOGIN.getMessage(), null);
-        httpServletResponse.setStatus(400);
+        httpServletResponse.setStatus(401);
         httpServletResponse.getWriter().write(JsonUtils.getStrFromObject(response));
     }
 }
